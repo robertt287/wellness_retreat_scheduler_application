@@ -1,29 +1,72 @@
 package com.wellness.retreat.scheduler.models.entities;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
 public class Retreat {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-    private String name;
-
-
+    private String title;
     private String description;
 
+    @ManyToMany
+    @JoinTable(
+            name = "retreat_guest",
+            joinColumns = @JoinColumn(name = "retreat_id"),
+            inverseJoinColumns = @JoinColumn(name = "guest_id")
+    )
+    private Set<Guest> guests = new HashSet<>();
 
-    private LocalDate startDate;
+// Standard constructors, getters, and setters
 
+    public Retreat() {
+    }
 
-    private LocalDate endDate;
+    // Additional constructors, getters, and setters below
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    private String location;
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    private double price;
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    private int capacity;
+    public Set<Guest> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(Set<Guest> guests) {
+        this.guests = guests;
+    }
+
+    // You can also include methods to add and remove guests
+    public void addGuest(Guest guest) {
+        this.guests.add(guest);
+        guest.getRetreats().add(this);
+    }
+
+    public void removeGuest(Guest guest) {
+        this.guests.remove(guest);
+        guest.getRetreats().remove(this);
+    }
 }

@@ -22,16 +22,10 @@ public class Booking {
     private LocalDateTime checkInDate;
     private LocalDateTime checkOutDate;
 
-    // Additional fields like status, payment details, etc.
-
-    // Standard constructors, getters, and setters
-
     public Booking() {
     }
 
-    // Additional constructors, getters, and setters below
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

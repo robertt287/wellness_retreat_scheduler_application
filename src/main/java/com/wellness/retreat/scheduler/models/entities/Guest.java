@@ -10,20 +10,15 @@ public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String email;
     private String phone;
-
     @ManyToMany(mappedBy = "guests")
     private Set<Retreat> retreats = new HashSet<>();
-
-    // Standard constructors, getters, and setters
 
     public Guest() {
     }
 
-    // Additional constructors, getters and setters below
     public Long getId() {
         return id;
     }
@@ -64,7 +59,7 @@ public class Guest {
         this.retreats = retreats;
     }
 
-    // You can also include methods to add and remove retreats
+
     public void addRetreat(Retreat retreat) {
         this.retreats.add(retreat);
         retreat.getGuests().add(this);

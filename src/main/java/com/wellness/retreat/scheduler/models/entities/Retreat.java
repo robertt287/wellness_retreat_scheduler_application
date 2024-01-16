@@ -21,12 +21,10 @@ public class Retreat {
     )
     private Set<Guest> guests = new HashSet<>();
 
-// Standard constructors, getters, and setters
 
     public Retreat() {
     }
 
-    // Additional constructors, getters, and setters below
     public Long getId() {
         return id;
     }
@@ -59,7 +57,7 @@ public class Retreat {
         this.guests = guests;
     }
 
-    // You can also include methods to add and remove guests
+
     public void addGuest(Guest guest) {
         this.guests.add(guest);
         guest.getRetreats().add(this);

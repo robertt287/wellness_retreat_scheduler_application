@@ -1,73 +1,34 @@
 package com.wellness.retreat.scheduler.models.entities;
 
-import jakarta.persistence.*;
+
 
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "first_name")
     private String name;
+
+    @Column(name = "email_address")
     private String email;
+
+    @Column(name = "phone_number")
     private String phone;
+
     @ManyToMany(mappedBy = "guests")
     private Set<Retreat> retreats = new HashSet<>();
-
-    public Guest() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Set<Retreat> getRetreats() {
-        return retreats;
-    }
-
-    public void setRetreats(Set<Retreat> retreats) {
-        this.retreats = retreats;
-    }
-
-
-    public void addRetreat(Retreat retreat) {
-        this.retreats.add(retreat);
-        retreat.getGuests().add(this);
-    }
-
-    public void removeRetreat(Retreat retreat) {
-        this.retreats.remove(retreat);
-        retreat.getGuests().remove(this);
-    }
 }
 

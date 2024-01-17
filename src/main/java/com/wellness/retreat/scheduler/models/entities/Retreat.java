@@ -1,16 +1,26 @@
 package com.wellness.retreat.scheduler.models.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Retreat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "title", nullable = false, length = 200)
     private String title;
+
+    @Column(name = "description", length = 500)
     private String description;
 
     @ManyToMany
@@ -20,51 +30,4 @@ public class Retreat {
             inverseJoinColumns = @JoinColumn(name = "guest_id")
     )
     private Set<Guest> guests = new HashSet<>();
-
-
-    public Retreat() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Guest> getGuests() {
-        return guests;
-    }
-
-    public void setGuests(Set<Guest> guests) {
-        this.guests = guests;
-    }
-
-
-    public void addGuest(Guest guest) {
-        this.guests.add(guest);
-        guest.getRetreats().add(this);
-    }
-
-    public void removeGuest(Guest guest) {
-        this.guests.remove(guest);
-        guest.getRetreats().remove(this);
-    }
 }

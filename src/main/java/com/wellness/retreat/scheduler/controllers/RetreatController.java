@@ -1,8 +1,7 @@
 package com.wellness.retreat.scheduler.controllers;
 
-import com.wellness.retreat.scheduler.models.entities.Retreat;
+import com.wellness.retreat.scheduler.models.dtos.RetreatDTO;
 import com.wellness.retreat.scheduler.services.RetreatService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,31 +20,26 @@ public class RetreatController {
     }
 
     @PostMapping
-    public ResponseEntity<Retreat> createRetreat(@Valid @RequestBody Retreat retreat) {
-        Retreat savedRetreat = retreatService.saveRetreat(retreat);
+    public ResponseEntity<RetreatDTO> createRetreat(@RequestBody RetreatDTO retreatDTO) {
+        RetreatDTO savedRetreat = retreatService.saveRetreat(retreatDTO);
         return ResponseEntity.ok(savedRetreat);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Retreat> getRetreatById(@PathVariable Long id) {
-        return retreatService.getRetreatById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RetreatDTO> getRetreatById(@PathVariable Long id) {
+        RetreatDTO retreatDTO = retreatService.getRetreatById(id);
+        return retreatDTO != null ? ResponseEntity.ok(retreatDTO) : ResponseEntity.notFound().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Retreat>> getAllRetreats() {
+    public ResponseEntity<List<RetreatDTO>> getAllRetreats() {
         return ResponseEntity.ok(retreatService.getAllRetreats());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Retreat> updateRetreat(@PathVariable Long id, @Valid @RequestBody Retreat retreatDetails) {
-        return retreatService.getRetreatById(id)
-                .map(retreat -> {
-                    // Update retreat details
-                    return ResponseEntity.ok(retreatService.saveRetreat(retreat));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RetreatDTO> updateRetreat(@PathVariable Long id, @RequestBody RetreatDTO retreatDTO) {
+        RetreatDTO updatedRetreat = retreatService.saveRetreat(retreatDTO);
+        return ResponseEntity.ok(updatedRetreat);
     }
 
     @DeleteMapping("/{id}")

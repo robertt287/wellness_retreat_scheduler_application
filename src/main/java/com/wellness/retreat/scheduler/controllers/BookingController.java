@@ -1,11 +1,11 @@
 package com.wellness.retreat.scheduler.controllers;
 
-import com.wellness.retreat.scheduler.models.entities.Booking;
+import com.wellness.retreat.scheduler.models.dtos.BookingDTO;
 import com.wellness.retreat.scheduler.services.BookingService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -21,31 +21,25 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@Valid @RequestBody Booking booking) {
-        Booking savedBooking = bookingService.saveBooking(booking);
-        return ResponseEntity.ok(savedBooking);
+    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
+        return ResponseEntity.ok(bookingService.saveBooking(bookingDTO));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+    public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
         return bookingService.getBookingById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<Booking>> getAllBookings() {
+    public ResponseEntity<List<BookingDTO>> getAllBookings() {
         return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @Valid @RequestBody Booking bookingDetails) {
-        return bookingService.getBookingById(id)
-                .map(booking -> {
-                    // Update booking details
-                    return ResponseEntity.ok(bookingService.saveBooking(booking));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<BookingDTO> updateBooking(@PathVariable Long id, @RequestBody BookingDTO bookingDetails) {
+        return ResponseEntity.ok(bookingService.saveBooking(bookingDetails));
     }
 
     @DeleteMapping("/{id}")

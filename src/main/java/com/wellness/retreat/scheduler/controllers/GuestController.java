@@ -1,5 +1,6 @@
 package com.wellness.retreat.scheduler.controllers;
 
+import com.wellness.retreat.scheduler.models.dtos.GuestDTO;
 import com.wellness.retreat.scheduler.models.entities.Guest;
 import com.wellness.retreat.scheduler.services.GuestService;
 import org.springframework.http.ResponseEntity;
@@ -18,31 +19,26 @@ public class GuestController {
     }
 
     @PostMapping
-    public ResponseEntity<Guest> createGuest(@RequestBody Guest guest) {
-        Guest savedGuest = guestService.saveGuest(guest);
+    public ResponseEntity<GuestDTO> createGuest(@RequestBody GuestDTO guestDTO) {
+        GuestDTO savedGuest = guestService.saveGuest(guestDTO);
         return ResponseEntity.ok(savedGuest);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Guest> getGuestById(@PathVariable Long id) {
-        return guestService.getGuestById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<GuestDTO> getGuestById(@PathVariable Long id) {
+        GuestDTO guestDTO = guestService.getGuestById(id);
+        return guestDTO != null ? ResponseEntity.ok(guestDTO) : ResponseEntity.notFound().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Guest>> getAllGuests() {
+    public ResponseEntity<List<GuestDTO>> getAllGuests() {
         return ResponseEntity.ok(guestService.getAllGuests());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Guest> updateGuest(@PathVariable Long id, @RequestBody Guest guestDetails) {
-        return guestService.getGuestById(id)
-                .map(guest -> {
-                    // Update guest details
-                    return ResponseEntity.ok(guestService.saveGuest(guest));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<GuestDTO> updateGuest(@PathVariable Long id, @RequestBody GuestDTO guestDTO) {
+        GuestDTO updatedGuest = guestService.saveGuest(guestDTO);
+        return ResponseEntity.ok(updatedGuest);
     }
 
     @DeleteMapping("/{id}")

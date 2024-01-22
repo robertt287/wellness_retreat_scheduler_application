@@ -2,6 +2,7 @@ package com.wellness.retreat.scheduler.controllers;
 
 import com.wellness.retreat.scheduler.models.dtos.BookingDTO;
 import com.wellness.retreat.scheduler.services.BookingService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
+    public ResponseEntity<BookingDTO> createBooking(@Valid @RequestBody BookingDTO bookingDTO) {
         return ResponseEntity.ok(bookingService.saveBooking(bookingDTO));
     }
 
@@ -38,7 +39,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookingDTO> updateBooking(@PathVariable Long id, @RequestBody BookingDTO bookingDetails) {
+    public ResponseEntity<BookingDTO> updateBooking(@Valid @PathVariable Long id, @RequestBody BookingDTO bookingDetails) {
         return ResponseEntity.ok(bookingService.saveBooking(bookingDetails));
     }
 

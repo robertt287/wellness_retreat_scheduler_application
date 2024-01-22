@@ -3,6 +3,7 @@ package com.wellness.retreat.scheduler.controllers;
 import com.wellness.retreat.scheduler.models.dtos.GuestDTO;
 import com.wellness.retreat.scheduler.models.entities.Guest;
 import com.wellness.retreat.scheduler.services.GuestService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class GuestController {
     }
 
     @PostMapping
-    public ResponseEntity<GuestDTO> createGuest(@RequestBody GuestDTO guestDTO) {
+    public ResponseEntity<GuestDTO> createGuest(@Valid @RequestBody GuestDTO guestDTO) {
         GuestDTO savedGuest = guestService.saveGuest(guestDTO);
         return ResponseEntity.ok(savedGuest);
     }
@@ -36,7 +37,7 @@ public class GuestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GuestDTO> updateGuest(@PathVariable Long id, @RequestBody GuestDTO guestDTO) {
+    public ResponseEntity<GuestDTO> updateGuest(@Valid @PathVariable Long id, @RequestBody GuestDTO guestDTO) {
         GuestDTO updatedGuest = guestService.saveGuest(guestDTO);
         return ResponseEntity.ok(updatedGuest);
     }

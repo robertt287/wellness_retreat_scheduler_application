@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,10 +27,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDTO getBookingById(Long id) {
+    public Optional<BookingDTO> getBookingById(Long id) {
         return bookingRepository.findById(id)
-                .map(this::convertToDTO)
-                .orElse(null);
+                .map(this::convertToDTO);
     }
 
     @Override

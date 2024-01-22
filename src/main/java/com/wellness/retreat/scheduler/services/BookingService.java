@@ -3,14 +3,16 @@ package com.wellness.retreat.scheduler.services;
 import com.wellness.retreat.scheduler.models.dtos.BookingDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookingService {
     BookingDTO saveBooking(BookingDTO bookingDTO);
 
-    BookingDTO getBookingById(Long id);
+    Optional<BookingDTO> getBookingById(Long id);
 
     List<BookingDTO> getAllBookings();
 
     void deleteBooking(Long id);
+
 }
 

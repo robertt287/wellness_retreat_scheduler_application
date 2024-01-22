@@ -6,6 +6,7 @@ import com.wellness.retreat.scheduler.repositories.RetreatRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,13 @@ public class RetreatServiceImpl implements RetreatService {
     @Override
     public void deleteRetreat(Long id) {
         retreatRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RetreatDTO> findRetreatsByCriteria(String title, LocalDateTime startDate, LocalDateTime endDate) {
+        return retreatRepository.findRetreatsByCriteria(title, startDate, endDate).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     private Retreat convertToEntity(RetreatDTO retreatDTO) {

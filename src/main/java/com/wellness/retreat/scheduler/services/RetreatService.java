@@ -16,4 +16,6 @@ public interface RetreatService {
     List<RetreatDTO> getAllRetreats();
     void deleteRetreat(Long id);
 
+    List<RetreatDTO> findRetreatsByCriteria(String title, LocalDateTime startDate, LocalDateTime endDate);
 }
+

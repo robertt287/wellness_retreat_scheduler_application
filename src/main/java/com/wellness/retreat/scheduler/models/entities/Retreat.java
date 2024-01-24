@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,12 @@ public class Retreat {
 
     @Column(name = "description", length = 500)
     private String description;
+
+    @Column(name = "start_date", nullable = false)
+    private LocalDateTime startDate;
+
+    @Column(name = "end_date", nullable = false)
+    private LocalDateTime endDate;
 
     @ManyToMany
     @JoinTable(

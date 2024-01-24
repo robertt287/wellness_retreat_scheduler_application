@@ -9,14 +9,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface RetreatRepository extends JpaRepository<Retreat, Long> {
+
     List<Retreat> findByTitleContaining(String title);
 
-    @Query
-    List<Retreat> findRetreatsBetweenDates(LocalDateTime start, LocalDateTime end);
+    List<Retreat> findByStartDateGreaterThanEqualAndEndDateLessThanEqual(LocalDateTime start, LocalDateTime end);
 
-    List<Retreat> findRetreatsByCriteria(@Param("title") String title,
-                                         @Param("startDate") LocalDateTime startDate,
-                                         @Param("endDate") LocalDateTime endDate);
+    @Query("SELECT r FROM Retreat r WHERE " +
+            "(:title IS NULL OR r.title LIKE CONCAT('%', :title, '%')) AND " +
+            "(:startDate IS NULL OR r.startDate >= :startDate) AND " +
+            "(:endDate IS NULL OR r.endDate <= :endDate)")
+    List<Retreat> findRetreatsByCriteria(@Param("title") String title, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }
-
 

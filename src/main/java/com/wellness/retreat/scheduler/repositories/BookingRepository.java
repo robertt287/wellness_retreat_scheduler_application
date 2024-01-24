@@ -15,6 +15,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByRetreatId(Long retreatId);
 
-    @Query()
+    @Query("SELECT b FROM Booking b WHERE b.checkInDate >= :startDate AND b.checkOutDate <= :endDate")
     List<Booking> findBookingsWithinDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }

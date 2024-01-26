@@ -1,7 +1,5 @@
 package com.wellness.retreat.scheduler.models.entities;
 
-
-
 import java.util.HashSet;
 import java.util.Set;
 

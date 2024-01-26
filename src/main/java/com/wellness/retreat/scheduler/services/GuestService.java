@@ -1,6 +1,8 @@
 package com.wellness.retreat.scheduler.services;
 
 import com.wellness.retreat.scheduler.models.dtos.GuestDTO;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 

@@ -58,4 +58,6 @@ public class RetreatController {
         retreatService.deleteRetreat(id);
         return ResponseEntity.ok().build();
     }
+
+
 }

@@ -63,4 +63,16 @@ public class RetreatServiceImpl implements RetreatService {
         BeanUtils.copyProperties(retreat, retreatDTO);
         return retreatDTO;
     }
+
+    public Retreat createRetreat(RetreatDTO retreatDTO) {
+        Retreat retreat = new Retreat();
+        retreat.setTitle(retreatDTO.getTitle());
+        retreat.setDescription(retreatDTO.getDescription());
+        retreat.setStartDate(retreatDTO.getStartDate());
+        retreat.setEndDate(retreatDTO.getEndDate());
+
+        return retreatRepository.save(retreat);
+    }
+
+
 }
